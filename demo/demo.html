@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" ng-app="demo">
+	<head>
+		<meta charset="utf-8">				
+
+
+		<link type="text/css" rel="stylesheet" href="styles.css"></link>
+
+		<script src="angular.min.js"></script>
+		<script src="../src/ng-drawer.js"></script>
+
+		<script src="app.js"></script>
+
+		<style>
+
+			body {
+				margin:			0;
+				padding:		0;
+				font-size:		2em;
+			}
+
+			html{
+				overflow-x:		hidden;
+			}
+
+			section {
+				position:		absolute;
+				width:			4em;
+				right:			0;
+			}
+
+			
+			article .content{
+				display:		block;
+				width:			10em;
+				height:			4em;
+				background:		#fbe;				
+			}
+
+			article .content:after{
+				content:		'X';
+				position:		absolute;
+				display:		block;
+				left:			100%;
+				width:			5em;
+				height:			20em;
+				top:			-5em;
+				background-color: #0ff;
+			}
+
+			article.drawn{
+				padding-top:5em;
+				margin-top:-5em;
+				padding-bottom:	11em;
+				margin-bottom:	-11em;
+				opacity: 0.8;
+				background-color: #aaa;
+			}
+
+		</style>
+
+	</head>
+	<body >
+		<header>
+		</header>
+		<section>
+
+				<article ng-drawer = "right">
+					<div class="content">A</div>
+				</article>
+
+				<article ng-drawer = "right">
+					<div class="content">B</div>
+				</article>	
+
+				<article ng-drawer = "right">
+					<div class="content">C</div>
+				</article>
+
+				<article ng-drawer = "right">
+					<div class="content">D</div>
+				</article>
+
+				<article ng-drawer = "right">
+					<div class="content">E</div>
+				</article>
+
+				<article ng-drawer = "right">
+					<div class="content">F</div>
+				</article>
+
+				<article ng-drawer = "right">
+					<div class="content">G</div>
+				</article>
+
+			</div>			
+		</section>		
+		<footer>
+		</footer>
+	</body>
+</html>
+</html>
