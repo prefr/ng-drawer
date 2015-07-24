@@ -67,10 +67,10 @@ angular.module('ngDrawer', [])
 
 				element.on('mousedown touchstart', draw)
 
-				$document.find('body').eq(0).on('mouseup touchend touchcancel', tuck)
+				$document.find('body').eq(0).on('mouseup touchend', tuck)
 
 				scope.$on('$destroy', function(){
-					$document.find('body').eq(0).off('mouseup touchend touchcancel', tuck)
+					$document.find('body').eq(0).off('mouseup touchend', tuck)
 				})
 
 /*
