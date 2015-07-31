@@ -1,11 +1,8 @@
 [ng-drawer] {
 	display:		inline-block;
 	position:		relative;	
-	overflow-x:		hidden;
-	overflow-y:		hidden;
+    overflow:       visible;
 }
 
 [ng-drawer].drawn{	
-	overflow-x:		scroll;
-	overflow-y:		hidden;
 }

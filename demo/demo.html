@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">				
 
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
 
 		<link type="text/css" rel="stylesheet" href="styles.css"></link>
 
@@ -13,20 +14,30 @@
 
 		<style>
 
+			html {
+				overflow-x:		hidden;
+				width:			100%;
+				min-height:		100%;
+				height:			100%;
+				position:		relative;
+			}
+
 			body {
 				margin:			0;
 				padding:		0;
-				font-size:		2em;
-			}
-
-			html{
+				font-size:		1.2em;
 				overflow-x:		hidden;
+				position:		relative;
+				width:			100%;
+				height:			100%;
 			}
 
 			section {
-				position:		absolute;
+				position:		relative;
 				width:			4em;
-				right:			0;
+				right:			0em;
+				margin-left:	auto;
+				overflow:		scroll;
 			}
 
 			
@@ -37,12 +48,13 @@
 				background:		#fbe;				
 			}
 
+			/*
 			article .content:after{
 				content:		'X';
 				position:		absolute;
 				display:		block;
 				left:			100%;
-				width:			5em;
+				width:			55px;
 				height:			20em;
 				top:			-5em;
 				background-color: #0ff;
@@ -56,6 +68,7 @@
 				opacity: 0.8;
 				background-color: #aaa;
 			}
+			*/
 
 		</style>
 
@@ -64,37 +77,26 @@
 		<header>
 		</header>
 		<section>
+			<article ng-drawer>
+				<div class="content">A</div>
+			</article>
+		</section>	
+		<section>
+			<article ng-drawer>
+				<div class="content">B</div>
+			</article>
+		</section>	
+		<section>
+			<article ng-drawer>
+				<div class="content">C</div>
+			</article>
+		</section>	
+		<section>
+			<article ng-drawer>
+				<div class="content">D</div>
+			</article>
+		</section>	
 
-				<article ng-drawer = "right">
-					<div class="content">A</div>
-				</article>
-
-				<article ng-drawer = "right">
-					<div class="content">B</div>
-				</article>	
-
-				<article ng-drawer = "right">
-					<div class="content">C</div>
-				</article>
-
-				<article ng-drawer = "right">
-					<div class="content">D</div>
-				</article>
-
-				<article ng-drawer = "right">
-					<div class="content">E</div>
-				</article>
-
-				<article ng-drawer = "right">
-					<div class="content">F</div>
-				</article>
-
-				<article ng-drawer = "right">
-					<div class="content">G</div>
-				</article>
-
-			</div>			
-		</section>		
 		<footer>
 		</footer>
 	</body>
