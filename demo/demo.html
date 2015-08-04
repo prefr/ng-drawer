@@ -37,16 +37,57 @@
 				width:			4em;
 				right:			0em;
 				margin-left:	auto;
-				overflow:		scroll;
 			}
 
 			
 			article .content{
 				display:		block;
-				width:			10em;
-				height:			4em;
-				background:		#fbe;				
+				font-size:		2em;
+				width:			5em;
+				height:			1.5em;
+				background:		#8af;
+				border-radius:	0.2em;
+				box-shadow:		0 0 0.25em rgba(0,0,0,0.2);				
+				margin:			0.25em;
+				padding:		0 0.25em;
+				line-height:	1.5em;
+				color:			#fff;
+				font-weight:	bold;
 			}
+
+			article .content:before{
+				content:		'';
+				font-size:		0em;
+				position:		absolute;
+				right:			100%;
+				margin-right:	4em;
+				border-top:		1em solid transparent;
+				border-right:	2em solid rgba(0,0,0,0.2);
+				border-bottom:	1em solid transparent;
+				border-left:	0em;
+				height:			0;
+				top:			50%;
+				margin-top:		-1em;
+				transition:		all 400ms;
+
+			}
+
+			article.drawn .content:before{
+				font-size:		0.5em;
+			}
+
+
+
+			[ng-drawer]{
+				position:		relative;
+				margin-left:	auto;
+				width:			3em;
+				right:			0em;
+				margin-top:		0.5em;
+			}
+
+
+
 
 			/*
 			article .content:after{
@@ -76,27 +117,26 @@
 	<body >
 		<header>
 		</header>
-		<section>
 			<article ng-drawer>
-				<div class="content">A</div>
+				<div class="content">
+					A - Pull me
+				</div>
 			</article>
-		</section>	
-		<section>
 			<article ng-drawer>
-				<div class="content">B</div>
+				<div class="content">
+					B -Pull me
+				</div>
 			</article>
-		</section>	
-		<section>
 			<article ng-drawer>
-				<div class="content">C</div>
+				<div class="content">
+					C - Pull me
+				</div>
 			</article>
-		</section>	
-		<section>
 			<article ng-drawer>
-				<div class="content">D</div>
+				<div class="content">
+					D - Pull me
+				</div>
 			</article>
-		</section>	
-
 		<footer>
 		</footer>
 	</body>

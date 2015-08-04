@@ -1,8 +1,0 @@
-[ng-drawer] {
-	display:		inline-block;
-	position:		relative;	
-    overflow:       visible;
-}
-
-[ng-drawer].drawn{	
-}
