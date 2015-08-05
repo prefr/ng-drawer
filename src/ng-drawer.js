@@ -107,13 +107,27 @@ angular.module('ngDrawer', [])
 				}
 
 				function draw(){
-
 					if(!scope.drawn) {
 
 						scope.drawn = true
 
-						available_space_left 	=  	frame[0].offsetLeft-container[0].offsetLeft
+
+						function getOffset(from, to){
+							var offset_parent = from[0].offsetParent
+												?	angular.element(from[0].offsetParent)
+												:	null
+
+							console.log(from[0], from[0].offsetLeft)
+
+							return 	offset_parent && (offset_parent != to[0])
+									?	from[0].offsetLeft+getOffset(offset_parent, to)
+									:	0
+						}
+
+						available_space_left 	=  	getOffset(frame, container)
 						tucked_width			=	frame[0].offsetWidth
+
+						console.log(available_space_left)
 
 						frame.css({
 							'padding-left':			available_space_left+'px',
@@ -141,7 +155,7 @@ angular.module('ngDrawer', [])
 
 					var last_scroll_pos 		= 	frame[0].scrollLeft,
 						distance				=	undefined,
-						check_scrolling 		= 	$interval(updateScrolling, 5, false)
+						check_scrolling 		= 	$interval(updateScrolling, 15, false)
 
  
 					function updateScrolling(){
@@ -154,10 +168,8 @@ angular.module('ngDrawer', [])
 
 						frame[0].scrollLeft += momentum
 
-						$document.find('body').eq(0).append('<span> M:'+momentum+' D:'+delta+' NPOS:'+last_scroll_pos+' POS:'+scroll_pos+' </span><br/> ')
 
-
-						if([0,1].indexOf(distance) != -1 ){
+						if([0,1].indexOf(distance) != -1 && delta == 0){
 							$interval.cancel(check_scrolling)
 						 	if(distance == 0) tuck()
 						}
