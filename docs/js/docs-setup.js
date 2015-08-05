@@ -5,12 +5,12 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
-      "id": "rfx.directive:rAutogrow",
-      "shortName": "rAutogrow",
+      "id": "ngDrawer.directive:ngDrawer",
+      "shortName": "ngDrawer",
       "type": "directive",
-      "moduleName": "rfx",
-      "shortDescription": "Resize textarea automatically to the size of its text content.",
-      "keywords": "api automatically class content directive getcomputedstyle html input-block-level module ng-model polyfill resize rfx rx-autogrow size text textarea window"
+      "moduleName": "ngDrawer",
+      "shortDescription": "",
+      "keywords": "api directive ea html module ng-drawer ngdrawer pull"
     }
   ],
   "apis": {

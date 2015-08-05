@@ -25,5 +25,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-ngdocs')
 
 	
-	grunt.registerTask('default', ['uglify'])
+	grunt.registerTask('default', ['uglify', 'ngdocs'])
 }

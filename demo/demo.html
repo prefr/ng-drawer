@@ -61,7 +61,7 @@
 				right:			100%;
 				margin-right:	4em;
 				border-top:		1em solid transparent;
-				border-right:	2em solid rgba(0,0,0,0.2);
+				border-right:	2em solid rgba(0,0,0,0.8);
 				border-bottom:	1em solid transparent;
 				border-left:	0em;
 				height:			0;
@@ -75,7 +75,25 @@
 				font-size:		0.5em;
 			}
 
+			.abs {
+				position:		absolute !important;
+				top:			18em;
+			}
 
+			.abs .content {
+				background:		#e75;
+			}
+
+			[ng-drawer-mounting] {
+				position:		absolute;
+				width:			3em;
+				right:			0;
+				overflow:		visible;
+			}
+
+			[ng-drawer-mounting] [ng-drawer]{
+				direction:		ltr;
+			}
 
 			[ng-drawer]{
 				position:		relative;
@@ -93,23 +111,25 @@
 	<body >
 		<header>
 		</header>
-		
-			<article ng-drawer>
-				<div class="content">
-					A - Pull me
-				</div>
-			</article>
-			<article ng-drawer>
-				<div class="content">
-					B -Pull me
-				</div>
-			</article>
-			<article ng-drawer>
-				<div class="content">
-					C - Pull me
-				</div>
-			</article>
-			<article ng-drawer>
+			<aside ng-drawer-mounting = "right">
+				<article ng-drawer = "right">
+					<div class="content">
+						A - Pull me
+					</div>
+				</article>
+				<article ng-drawer ="right">
+					<div class="content">
+						B -Pull me
+					</div>
+				</article>
+				<article ng-drawer = "right">
+					<div class="content">
+						C - Pull me
+					</div>
+				</article>
+			</aside>
+
+			<article ng-drawer = "right" class ="abs">
 				<div class="content">
 					D - Pull me
 				</div>
