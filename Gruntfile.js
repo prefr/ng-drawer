@@ -13,11 +13,16 @@ module.exports = function(grunt) {
 		  								dest: 'dist/<%= pkg.name %>.min.js'
 						}
 	  				},
+
+	  	ngdocs:		{
+	  					all:		['src/**/*.js']
+	  				}
 	})
 
 
 	
 	grunt.loadNpmTasks('grunt-contrib-uglify')
+	grunt.loadNpmTasks('grunt-ngdocs')
 
 	
 	grunt.registerTask('default', ['uglify'])
