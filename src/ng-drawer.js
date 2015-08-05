@@ -46,6 +46,29 @@ angular.module('ngDrawer', [])
 
 })
 
+
+/**
+ * @ngdoc directive
+ * @name ngDrawer.directive:ngDrawer
+ * @scope
+ * @restrict EA
+ * @element 
+ * @function
+ *
+ * @description
+ * 
+ *
+ *
+ * @example
+   <example module="ngDrawer">
+     <file name="index.html">
+         <article ng-drawer="right">
+         	Pull me
+         </article>
+     </file>
+   </example>
+ */
+
 .directive('ngDrawer',[
 
 	'$document',
@@ -57,6 +80,7 @@ angular.module('ngDrawer', [])
 
 			transclude:		true,
 			scope:			true,
+			restrict:		'EA',
 			
 
 			link: function(scope, element, attrs, ctrl, transclude){
