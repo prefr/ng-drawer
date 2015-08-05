@@ -46,7 +46,6 @@ angular.module('ngDrawer', [])
 
 })
 
-
 /**
  * @ngdoc directive
  * @name ngDrawer.directive:ngDrawer
@@ -57,7 +56,7 @@ angular.module('ngDrawer', [])
  *
  * @description
  * 
- *
+ * **Note:** Elements needs positioning, either manual or via ng-drawer-mounting
  *
  * @example
    <example module="ngDrawer">
@@ -102,6 +101,7 @@ angular.module('ngDrawer', [])
 				frame.css({
 					'overflow-x':			'scroll',
 					'overflow-y':			'hidden',
+					'display':				'block'
 				})
 
 				shuttle.css({
@@ -155,7 +155,7 @@ angular.module('ngDrawer', [])
 
 						frame.css({
 							'padding-left':			available_space_left+'px',
-							'width':				'auto'
+							'width':				tucked_width
 						})
 
 						shuttle.css({
@@ -228,3 +228,24 @@ angular.module('ngDrawer', [])
 	}
 ])
 
+
+
+.directive('ngDrawerMounting', [
+
+	function(){
+		return {			
+			restrict:		'EA',
+
+			link: function(scope, element, attrs){
+				var side 		= attrs.ngDrawerMounting,
+					direction 	= side == 'right' ? 'rtl' : (side == 'left' ? 'ltr' : '')
+
+				element.css({
+					'position':		'absolute',
+					'overflow':		'visible',
+					'direction':	direction,
+				})
+			}
+		}
+	}
+])
