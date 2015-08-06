@@ -26,7 +26,7 @@ angular.module('ngDrawer', [])
 
 	
 		this.addSnappingFunction('default', 
-			function (delta, distance, scrollWidth){
+			function (delta, distance){
 				var dir = 0
 
 				if(Math.abs(delta)>=10){	//swipe
@@ -40,7 +40,6 @@ angular.module('ngDrawer', [])
 							:	-1
 
 				}
-
 				
 				return	(Math.abs(delta)+4)*dir
 			}
@@ -111,6 +110,8 @@ angular.module('ngDrawer', [])
 													:	'rtl'
 				})
 
+				frame[0].scrollLeft = 0
+
 				shuttle
 				.css({
 					'position': 					'relative',	
@@ -129,17 +130,13 @@ angular.module('ngDrawer', [])
 							:	p/available_space
 				}
 
-				function getMomentum(delta, distance, DOM){
-					return ngDrawer.snappingFunctions['default'](delta, distance, DOM) //DOM -> this
+				function getMomentum(delta, distance, rtl){
+					return ngDrawer.snappingFunctions['default'](delta, distance) //DOM -> this
 				}
 
 
 				scope.getDistance = function(){					
-					return 	px2frac(
-								draw_to == 'left'
-								?	frame[0].scrollLeft
-								:	frame[0].scrollRight
-							)
+					return 	px2frac(Math.abs(frame[0].scrollLeft))
 				}
 
 				function draw(){
@@ -149,9 +146,7 @@ angular.module('ngDrawer', [])
 
 						var tucked_width	=	frame[0].offsetWidth
 
-						available_space 	=  	container[0].offsetWidth-tucked_width		
-
-						console.log(available_space)				
+						available_space 	=  	container[0].clientWidth-tucked_width		
 
 						frame
 						.css('width',						tucked_width)
@@ -167,28 +162,24 @@ angular.module('ngDrawer', [])
 
 				function snap() {
 
-					var last_scroll_pos 		= 	draw_to == 'left'
-													?	frame[0].scrollLeft
-													:	frame[0].scrollRight,
+					var last_scroll_pos 		= 	frame[0].scrollLeft,
 						distance				=	undefined,
 						check_scrolling 		= 	$interval(updateScrolling, 15, false)
 
  
 					function updateScrolling(){
-						var scroll_pos			= 	draw_to == 'left'
-													?	frame[0].scrollLeft
-													:	frame[0].scrollRight,					
+						var scroll_pos			= 	frame[0].scrollLeft,					
 							delta 				= 	(scroll_pos-last_scroll_pos),
 							distance			=	distance == undefined ? scope.getDistance() : distance,
-							momentum			=	getMomentum(delta, distance)						
+							momentum			=	getMomentum(delta, draw_to == 'left' ? distance : 1-distance)						
 
-						last_scroll_pos = 	draw_to == 'left'
-											?	frame[0].scrollLeft
-											:	frame[0].scrollRight,
+						console.log(distance, momentum)
+
+						last_scroll_pos = 	frame[0].scrollLeft											
 
 						draw_to == 'left'
 						?	frame[0].scrollLeft 	+= momentum
-						:	frame[0].scrollRight 	+= momentum
+						:	frame[0].scrollLeft 	+= momentum
 
 
 						if([0,1].indexOf(distance) != -1 && delta == 0){
