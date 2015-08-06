@@ -113,12 +113,10 @@ angular.module('ngDrawer', [])
 
 				shuttle
 				.css({
-					'position': 					'relative',					
-					'width':						'0'
-				})
-				.css('border-'+draw_from+'-style',	'solid')
-				.css('border-'+draw_from+'-color',	'transparent')
-					
+					'position': 					'relative',	
+					'overflow-x':					'hidden',
+					'width':						container[0].clientWidth+'px'
+				})					
 
 
 				function frac2px(p){
@@ -158,10 +156,6 @@ angular.module('ngDrawer', [])
 						frame
 						.css('width',						tucked_width)
 						.css('padding-'+draw_to,			available_space+'px')
-
-						shuttle
-						.css('width',	available_space+tucked_width+'px')						
-
 
 						element.addClass('drawn')
 					}
