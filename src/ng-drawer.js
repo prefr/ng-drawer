@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module('ngDrawer', [])
 
 
@@ -91,7 +93,9 @@ angular.module('ngDrawer', [])
 					shuttle					= 	angular.element('<div></div>'),
 					last_scroll_pos 		= 	undefined,
 					scroll_space			= 	undefined,
-					available_space_left 	= 	0
+					available_space		 	= 	0,
+					draw_from				=	attrs.ngDrawer 	== 'left' ? 'left' 	: 'right',
+					draw_to					=	draw_from 		== 'left' ? 'right' : 'left'
 
 				transclude(function(clone){
 					shuttle.append(clone)
@@ -99,26 +103,32 @@ angular.module('ngDrawer', [])
 				})
 
 				frame.css({
-					'overflow-x':			'scroll',
-					'overflow-y':			'hidden',
-					'display':				'block'
+					'overflow-x':					'scroll',
+					'overflow-y':					'hidden',
+					'display':						'block',
+					'direction':					draw_to == 'left'
+													?	'ltr'
+													:	'rtl'
 				})
 
-				shuttle.css({
-					'position': 			'relative',
-					'border-right-style':	'solid',
-					'border-right-color':	'transparent',
-					'width':				'0'
+				shuttle
+				.css({
+					'position': 					'relative',					
+					'width':						'0'
 				})
+				.css('border-'+draw_from+'-style',	'solid')
+				.css('border-'+draw_from+'-color',	'transparent')
+					
+
 
 				function frac2px(p){
-					return available_space_left*p
+					return available_space*p
 				}
 
-				function px2frac(p){
-					return 	(p == 0 || available_space_left == 0)
+				function px2frac(p){					
+					return 	(p == 0 || available_space == 0)
 							?	0
-							:	p/available_space_left
+							:	p/available_space
 				}
 
 				function getMomentum(delta, distance, DOM){
@@ -126,8 +136,12 @@ angular.module('ngDrawer', [])
 				}
 
 
-				scope.getDistance = function(){
-					return px2frac(frame[0].scrollLeft)
+				scope.getDistance = function(){					
+					return 	px2frac(
+								draw_to == 'left'
+								?	frame[0].scrollLeft
+								:	frame[0].scrollRight
+							)
 				}
 
 				function draw(){
@@ -135,32 +149,18 @@ angular.module('ngDrawer', [])
 
 						scope.drawn = true
 
+						var tucked_width	=	frame[0].offsetWidth
 
-						function getOffset(from, to){
-							var offset_parent = from[0].offsetParent
-												?	angular.element(from[0].offsetParent)
-												:	null
+						available_space 	=  	container[0].offsetWidth-tucked_width		
 
-							console.log(from[0], from[0].offsetLeft)
+						console.log(available_space)				
 
-							return 	offset_parent && (offset_parent != to[0])
-									?	from[0].offsetLeft+getOffset(offset_parent, to)
-									:	0
-						}
+						frame
+						.css('width',						tucked_width)
+						.css('padding-'+draw_to,			available_space+'px')
 
-						available_space_left 	=  	getOffset(frame, container)
-						tucked_width			=	frame[0].offsetWidth
-
-						console.log(available_space_left)
-
-						frame.css({
-							'padding-left':			available_space_left+'px',
-							'width':				tucked_width
-						})
-
-						shuttle.css({
-							'border-right-width':	available_space_left+tucked_width+'px'//frame[0].clientWidth-element[0].clientWidth+'px'
-						})
+						shuttle
+						.css('border-'+draw_from+'-width',	available_space+tucked_width+'px')
 
 
 						element.addClass('drawn')
@@ -171,26 +171,30 @@ angular.module('ngDrawer', [])
 				}
 
 
-				//todo alles auf parent element verschieben,
-				// momentum funktion auf this
-
-
 				function snap() {
 
-					var last_scroll_pos 		= 	frame[0].scrollLeft,
+					var last_scroll_pos 		= 	draw_to == 'left'
+													?	frame[0].scrollLeft
+													:	frame[0].scrollRight,
 						distance				=	undefined,
 						check_scrolling 		= 	$interval(updateScrolling, 15, false)
 
  
 					function updateScrolling(){
-						var scroll_pos			= 	frame[0].scrollLeft,					
+						var scroll_pos			= 	draw_to == 'left'
+													?	frame[0].scrollLeft
+													:	frame[0].scrollRight,					
 							delta 				= 	(scroll_pos-last_scroll_pos),
 							distance			=	distance == undefined ? scope.getDistance() : distance,
-							momentum			=	getMomentum(delta, distance)
+							momentum			=	getMomentum(delta, distance)						
 
-						last_scroll_pos = frame[0].scrollLeft
+						last_scroll_pos = 	draw_to == 'left'
+											?	frame[0].scrollLeft
+											:	frame[0].scrollRight,
 
-						frame[0].scrollLeft += momentum
+						draw_to == 'left'
+						?	frame[0].scrollLeft 	+= momentum
+						:	frame[0].scrollRight 	+= momentum
 
 
 						if([0,1].indexOf(distance) != -1 && delta == 0){
@@ -205,14 +209,12 @@ angular.module('ngDrawer', [])
 				 	scope.drawn = false
 				 	element.removeClass('drawn')
 
-				 	frame.css({
-				 		'padding-left':		'',
-				 		'width':			''
-				 	})
+				 	frame
+				 	.css('padding-'+draw_to,			'')
+				 	.css('width',						'')
 
-				 	shuttle.css({
-				 		'border-right-width':		'0'
-				 	})
+				 	shuttle
+				 	.css('border-'+draw_from+'-width',	'0')
 					
 				}
 
@@ -224,28 +226,6 @@ angular.module('ngDrawer', [])
 
 			}
 
-		}
-	}
-])
-
-
-
-.directive('ngDrawerMounting', [
-
-	function(){
-		return {			
-			restrict:		'EA',
-
-			link: function(scope, element, attrs){
-				var side 		= attrs.ngDrawerMounting,
-					direction 	= side == 'right' ? 'rtl' : (side == 'left' ? 'ltr' : '')
-
-				element.css({
-					'position':		'absolute',
-					'overflow':		'visible',
-					'direction':	direction,
-				})
-			}
 		}
 	}
 ])

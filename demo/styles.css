@@ -1,5 +1,11 @@
-.ng-drawer-mounting-right {
-	position:		absolute;
-	overflow:		visible;
-	direction:		ltr;
+.ng-drawer-mounting-right{
+	position:			absolute;
+	overflow:			visible !important;
+	direction:			rtl !important;
+}
+
+.ng-drawer-mounting-left{
+	position:			absolute;
+	overflow:			visible !important;
+	direction:			ltr !important;
 }

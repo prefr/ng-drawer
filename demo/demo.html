@@ -39,10 +39,10 @@
 				text-align: 	justify
 			}
 			
-			article .content{
+			.right .content{
 				display:		block;
 				font-size:		2em;
-				width:			5em;
+				width:			10em;
 				height:			1.5em;
 				background:		#8af;
 				border-radius:	0.2em;
@@ -54,7 +54,7 @@
 				font-weight:	bold;
 			}
 
-			article .content:before{
+			.right .content:before{
 				content:		'';
 				font-size:		0em;
 				position:		absolute;
@@ -71,31 +71,31 @@
 
 			}
 
-			article.drawn .content:before{
+			.right .drawn .content:before{
 				font-size:		0.5em;
 			}
 
-			.abs {
+			.right .abs {
 				position:		absolute !important;
 				top:			18em;
 			}
 
-			.abs .content {
+			.right .abs .content {
 				background:		#e75;
 			}
 
-			[ng-drawer-mounting] {
+			.right .ng-drawer-mounting-right {
 				position:		absolute;
 				width:			3em;
 				right:			0;
 				overflow:		visible;
 			}
 
-			[ng-drawer-mounting] [ng-drawer]{
+			.right .ng-drawer-mounting-right [ng-drawer]{
 				direction:		ltr;
 			}
 
-			[ng-drawer]{
+			.right [ng-drawer]{
 				position:		relative;
 				margin-left:	auto;
 				width:			3em;
@@ -105,39 +105,137 @@
 
 
 
+
+			.left .content{
+				display:		block;
+				font-size:		2em;
+				width:			10em;
+				height:			1.5em;
+				background:		#a8f;
+				border-radius:	0.2em;
+				box-shadow:		0 0 0.25em rgba(0,0,0,0.2);				
+				margin:			0.25em;
+				padding:		0 0.25em;
+				line-height:	1.5em;
+				color:			#fff;
+				font-weight:	bold;
+				text-align:		right;
+			}
+
+			.left .content:before{
+				content:		'';
+				font-size:		0em;
+				position:		absolute;
+				left:			100%;
+				margin-left:	4em;
+				border-top:		1em solid transparent;
+				border-left:	2em solid rgba(0,0,0,0.8);
+				border-bottom:	1em solid transparent;
+				border-left:	0em;
+				height:			0;
+				top:			50%;
+				margin-top:		-1em;
+				transition:		all 400ms;
+
+			}
+
+			.left .drawn .content:before{
+				font-size:		0.5em;
+			}
+
+			.left .abs {
+				position:		absolute !important;
+				top:			14em;
+			}
+
+			.left .abs .content {
+				background:		#7e5;
+			}
+
+			.left .ng-drawer-mounting-left {
+				position:		absolute;
+				width:			4em;
+				left:			0;
+				overflow:		visible;
+			}
+
+			.left .ng-drawer-mounting-left [ng-drawer]{
+				direction:		ltr;
+			}
+
+			.left [ng-drawer]{
+				position:		relative;
+				margin-right:	auto;
+				width:			4em;
+				left:			0em;
+				margin-top:		0.5em;
+			}
+
+
+			.content {
+				direction:		ltr;
+			}
+
+
 		</style>
 
 	</head>
 	<body >
 		<header>
 		</header>
-			<aside ng-drawer-mounting = "right">
-				<article ng-drawer = "right">
-					<div class="content">
-						A - Pull me
-					</div>
-				</article>
-				<article ng-drawer ="right">
-					<div class="content">
-						B -Pull me
-					</div>
-				</article>
-				<article ng-drawer = "right">
-					<div class="content">
-						C - Pull me
-					</div>
-				</article>
-			</aside>
-
-			<article ng-drawer = "right" class ="abs">
-				<div class="content">
-					D - Pull me
+			<div class ="right">
+				<div class = "ng-drawer-mounting-right">
+					<article ng-drawer = "right">
+						<div class="content">
+							A - Pull me
+						</div>
+					</article>
+					<article ng-drawer ="right">
+						<div class="content">
+							B -Pull me
+						</div>
+					</article>
+					<article ng-drawer = "right">
+						<div class="content">
+							C - Pull me
+						</div>
+					</article>
 				</div>
-			</article>
+
+				<article ng-drawer = "right" class ="abs">
+					<div class="content">
+						D - Pull me
+					</div>
+				</article>
+			</div>
+
+			<div class ="left">
+
+				<div class = "ng-drawer-mounting-left">
+					<article ng-drawer = "left">
+						<div class="content">
+							Pull me - 1
+						</div>
+					</article>
+					<article ng-drawer = "left">
+						<div class="content">
+							Pull me - 2
+						</div>
+					</article>
+					
+				</div>
+
+				<article ng-drawer = "left" class ="abs">
+					<div class="content">
+						Pull me - 3
+					</div>
+				</article>
+
+			</div>
 
 			<section>
 				<h2>Lorem ipsum, </h2>
-dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+				dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
 			</section>
 		<footer>
 		</footer>
