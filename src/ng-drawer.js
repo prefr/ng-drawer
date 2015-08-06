@@ -160,7 +160,7 @@ angular.module('ngDrawer', [])
 						.css('padding-'+draw_to,			available_space+'px')
 
 						shuttle
-						.css('border-'+draw_from+'-width',	available_space+tucked_width+'px')
+						.css('width',	available_space+tucked_width+'px')						
 
 
 						element.addClass('drawn')
