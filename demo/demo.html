@@ -42,7 +42,7 @@
 			.right .content{
 				display:		block;
 				font-size:		2em;
-				width:			10em;
+				width:			7em;
 				height:			1.5em;
 				background:		#8af;
 				border-radius:	0.2em;
@@ -53,6 +53,11 @@
 				color:			#fff;
 				font-weight:	bold;
 			}
+
+			.right [ng-drawer]:first-of-type .content{
+				width:			20em;
+			}
+
 
 			.right .content:before{
 				content:		'';
@@ -82,11 +87,12 @@
 
 			.right .abs .content {
 				background:		#e75;
+				width:			10em;
 			}
 
 			.right .ng-drawer-mounting-right {
 				position:		absolute;
-				width:			3em;
+				margin-left:	auto;
 				right:			0;
 				overflow:		visible;
 			}
@@ -106,10 +112,11 @@
 
 
 
+
 			.left .content{
 				display:		block;
 				font-size:		2em;
-				width:			10em;
+				width:			15em;
 				height:			1.5em;
 				background:		#a8f;
 				border-radius:	0.2em;
@@ -154,7 +161,7 @@
 
 			.left .ng-drawer-mounting-left {
 				position:		absolute;
-				width:			4em;
+				margin-right:	auto;
 				left:			0;
 				overflow:		visible;
 			}
@@ -166,10 +173,9 @@
 			.left [ng-drawer]{
 				position:		relative;
 				margin-right:	auto;
-				width:			4em;
+				width:			6em;
 				left:			0em;
 				margin-top:		0.5em;
-				background:		rgba(255,0,0,0.2);
 			}
 
 
@@ -186,14 +192,14 @@
 		</header>
 			<div class ="right">
 				<div class = "ng-drawer-mounting-right">
-					<article ng-drawer = "right">
+					<article ng-drawer = "right" ng-draw = "time = getTime()">
 						<div class="content">
-							A - Pull me
+							A - Drawn at: {{time}}
 						</div>
 					</article>
 					<article ng-drawer ="right">
 						<div class="content">
-							B -Pull me
+							B - Pull me
 						</div>
 					</article>
 					<article ng-drawer = "right">
@@ -213,14 +219,14 @@
 			<div class ="left">
 
 				<div class = "ng-drawer-mounting-left">
-					<article ng-drawer = "left">
+					<article ng-drawer = "{drawFrom: 'left'}">
 						<div class="content">
 							Pull me - 1
 						</div>
 					</article>
-					<article ng-drawer = "left">
+					<article ng-drawer = "left" ng-snap = "time = getTime()">
 						<div class="content">
-							Pull me - 2
+							{{snapped ? 'Snapped at: '+time : 'Pull me!'}}
 						</div>
 					</article>
 					

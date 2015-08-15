@@ -8,6 +8,17 @@ var app  	=   angular.module(
                              ]
                 )
 
+app.run([
+
+    '$rootScope',
+
+    function($rootScope){
+        $rootScope.getTime = function(){
+            return (new Date()).toLocaleTimeString()
+        }
+    }
+])
+
 
 
 
