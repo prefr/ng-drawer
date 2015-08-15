@@ -275,7 +275,12 @@ angular.module('ngDrawer', [])
 						//delta stores how far the scroll momentum alone carried the shuttle in the last 15 milliseconds.
 
 						var delta 				= 	frame[0].scrollLeft-last_scroll_pos,
-							momentum			=	getMomentum(delta, distance)	
+													//positive delta_normalized: pulled out 
+													//negative delta_normalized: pushed in
+							delta_normalized	=	from_right ? delta : -delta,	
+							distance			= 	scope.getDistance(),
+							momentum_normalized	=	getMomentum(delta_normalized, distance),
+							momentum			= 	from_right ? momentum_normalized : -momentum_normalized
 
 						//momentum stores how far we should scroll in the next 15 milliseconds in addition to the 'natural' browser scroll momentum.
 						//the 'natural' browser scroll momentum will diminish quickly, but will show up in the first few calls of this function,
@@ -283,6 +288,8 @@ angular.module('ngDrawer', [])
 
 						last_scroll_pos 		= 	frame[0].scrollLeft
 						frame[0].scrollLeft 	+= 	momentum
+
+						$document.find('body').append('<div>'+frame[0].scrollLeft+','+delta+','+distance+'</div>')
 
 
 						//keep scrolling until the drawer is fully pulled out or fully tucked:
@@ -364,7 +371,6 @@ angular.module('ngDrawer', [])
 
 			link: function(scope, element, attrs){
 				element.on('draw', function(event){
-					console.dir(event)
 					scope.$eval(attrs.ngDraw, {'$event' : event})
 				})
 			}
