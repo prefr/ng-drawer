@@ -2,47 +2,92 @@
 
 angular.module('ngDrawer', [])
 
+/**
+ * @ngdoc service
+ * @name ngDrawer.service:ngDrawerProvider
+ * @description 
+ * Use this provider to set default behavior for {@link ngDrawer.service:ngDrawer ngDrawer directives}.
+ * 
+ */
 
+ 
 .provider('ngDrawer', function(){
 
-	var ngDrawerConfig		=	{
-									'snappingFunctions' : {}
-								}
+	/**
+	* @ngdoc service
+	* @name ngDrawer.service:ngDrawer
+	* @link ngDrawer.service:ngDrawerProvider
+	* @description Object containing all general ngDrawer configuration. There's only snapping functions as of now.
+	*/
 
 
-		this.config = function(custom_config){
-			angular.extend(ngDrawerConfig, custom_config)
-			return this
-		}
+	var ngDrawer		=	{
+								/**
+								 * @ngdoc property
+								 * @name ngDrawer.service:ngDrawer#snappingFunctions 
+								 * @propertyOf ngDrawer.service:ngDrawer
+								 * @returns {obj}  List of snapping functions (name => fn). Always contains default snapping function.
+								 *                 Add additional snapping functions via {@link ngDrawer.service:ngDrawerProvider#addSnappingFunction ngDrawerProvider#addSnappingFunction}.
+								 */
+								'snappingFunctions' : {}
+							}
 
-		this.addSnappingFunction = function(name, fn){
-			ngDrawerConfig.snappingFunctions[name] = fn
-			return this
-		}
 
-		this.$get = function(){
-			return ngDrawerConfig
-		}
+	/**
+	* @ngdoc method
+	* @name ngDrawer.service:ngDrawerProvider#config
+	* @methodOf ngDrawer.service:ngDrawerProvider
+	* @description 
+	* Extends drawer config with provided custom config object. Doesn't do anything yet.
+	* @param {obj} custom_config  plain object
+	*/
+   
+	this.config = function(custom_config){
+		angular.extend(ngDrawer, custom_config)
+		return this
+	}
 
-	
-		this.addSnappingFunction('default', 
-			function (delta, distance){
-				var dir = 0
+	/**
+	* @ngdoc method
+	* @name ngDrawer.service:ngDrawerProvider#addSnappingFunction
+	* @methodOf ngDrawer.service:ngDrawerProvider
+	* @description
+	* Adds a snapping function to the drawer config, that may be used with any drawer by referencing its name. 
+	* 
+	* @param {string} 	name 	The name of the snapping function. Use this when configuring a drawer directive.
+	* @param {function} fn 		The snapping function(delta, distance) takes two parameters. delta is the amount of pixels the drawer has been pulled out during the last 15ms.
+	*                         	distance is how far the drawer has been pulled out altogether(percentage).
+	*                      	 
+	*/
 
-				if(Math.abs(delta)>=10){	//swipe
-					dir = 	delta > 0
-							?	 1
-							:	-1
+	this.addSnappingFunction = function(name, fn){
+		ngDrawer.snappingFunctions[name] = fn
+		return this
+	}
 
-				}else{						//touchend
-					dir	=	distance > 0.5
-							?	 1
-							:	-1
-				}
-				
-				return	(Math.abs(delta)+4)*dir
+	this.$get = function(){
+		return ngDrawer
+	}
+
+
+	this.addSnappingFunction('default', 
+		function (delta, distance){
+			var dir = 0
+
+			if(Math.abs(delta)>=10){	//swipe
+				dir = 	delta > 0
+						?	 1
+						:	-1
+
+			}else{						//touchend
+				dir	=	distance > 0.5
+						?	 1
+						:	-1
 			}
-		)
+			
+			return	(Math.abs(delta)+4)*dir
+		}
+	)
 
 })
 
@@ -56,16 +101,16 @@ angular.module('ngDrawer', [])
  *
  * @description
  * 
- * **Note:** Elements needs positioning, either manual or via .ng-drawer-mounting
- *
- * @example
-   <example module="ngDrawer">
-     <file name="index.html">
-         <article ng-drawer="right">
-         	Pull me
-         </article>
-     </file>
-   </example>
+ * **Note:** Elements needs positioning, either manual or via .ng-drawer-mounting.
+ * @param {string|json} ngDrawer If a string is provided it will be interpreted as the side where the drawer is mounted to. 
+ *                               If it is anything different from 'left' it will be treated as 'right'. <br/>
+ *                               <br/>
+ *                               An object passed as json should have some the follwing properties:
+ *                               <pre>
+ *                               	{
+ *                               		drawFrom: 'left' // default is 'right'
+ *                               	}
+ *                               </pre>
  */
 
 .directive('ngDrawer',[
@@ -100,7 +145,7 @@ angular.module('ngDrawer', [])
 
 				var default_config	=	{
 											// The boundry_obj determines how far you draw the drawer
-											boundry_obj	:	$document.find('body').eq(0),
+											boundryObj	:	$document.find('body').eq(0),
 											// Where the drawer ist mounted: 'left' or 'right'
 											drawFrom	:	'right',
 										},
@@ -232,19 +277,19 @@ angular.module('ngDrawer', [])
 					//before we change anything, check how wide the content extends into the view:
 					content_tucked_width	=	frame[0].offsetWidth
 					//check how mach space is available to pull the drawer out;
-					available_space 		=  	config.boundry_obj[0].offsetWidth-content_tucked_width
+					available_space 		=  	config.boundryObj[0].offsetWidth-content_tucked_width
 
 
 
 					//extend the frame to the boundry
 					frame
-					.css('width',					config.boundry_obj[0].offsetWidth+'px')
+					.css('width',					config.boundryObj[0].offsetWidth+'px')
 
 					//extend the shuttle to the boundry
 					shuttle
-			 		.css('width',					config.boundry_obj[0].offsetWidth+'px')
-			 		//add an invisble  border to that side of the drawer we want to pull it towards,
-			 		//thus scrolling pnly the border out, when drawing.  
+					.css('width',					config.boundryObj[0].offsetWidth+'px')
+					//add an invisble  border to that side of the drawer we want to pull it towards,
+					//thus scrolling pnly the border out, when drawing.  
 					.css('border-'+to_str+'-width',	available_space+'px')
 					.css('border-'+to_str+'-style',	'solid')
 					.css('border-'+to_str+'-color',	'transparent')
@@ -268,7 +313,7 @@ angular.module('ngDrawer', [])
 						check_scrolling 		= 	$interval(updateScrolling, 15, false)
 
  
- 					//interval function:
+					//interval function:
 					function updateScrolling(){
 
 						//At the first call of this function, scroll_pos can be different from last_scroll_pos:
@@ -299,26 +344,26 @@ angular.module('ngDrawer', [])
 																//thus 'natural' browser momentum should also be 0
 						){
 							$interval.cancel(check_scrolling)
-						 	distance == 0 
-						 	?	tuck()
-						 	:	(scope.snapped = true && element.triggerHandler('snap'))
+							distance == 0 
+							?	tuck()
+							:	(scope.snapped = true && element.triggerHandler('snap'))
 						}
 					}
 
 				}
 
 				function tuck(){
-				 	scope.drawn = false
-				 	element.removeClass('drawn')
-				 	element.triggerHandler('tuck')
+					scope.drawn = false
+					element.removeClass('drawn')
+					element.triggerHandler('tuck')
 
-				 	//return drawer to its original state:
-				 	frame
-				 	.css('width',						'')
+					//return drawer to its original state:
+					frame
+					.css('width',						'')
 
-				 	shuttle
-				 	.css('width',						content_full_width+'px')
-				 	.css('border-'+to_str+'-width',		'0px')
+					shuttle
+					.css('width',						content_full_width+'px')
+					.css('border-'+to_str+'-width',		'0px')
 					.css('border-'+to_str+'-style',		'none')
 					.css('border-'+to_str+'-color',		'transparent')
 
@@ -343,27 +388,18 @@ angular.module('ngDrawer', [])
  * @name ngDrawer.directive:ngDraw
  * @restrict A
  * @element 
+ * @requires ngDrawer.directive:ngDrawer
  *
  * @description
  *
  * This directives allows you to execute custom behavior, when an ngDrawer is started to be drawn.
  *
- * @example
-   <example module="ngDrawer">
-     <file name="index.html">
-         <article ng-drawer="right" ng-drawn = "expression">
-         	Pull me
-         </article>
-     </file>
-   </example>
  */
 
 
 .directive('ngDraw',[
 
-	'ngDrawer', 
-
-	function(ngDrawer){
+	function(){
 		return {			
 			restrict:		'A',
 			require:		'ngDrawer',
@@ -381,11 +417,23 @@ angular.module('ngDrawer', [])
 
 
 
+/**
+ * @ngdoc directive
+ * @name ngDrawer.directive:ngSnap
+ * @restrict A
+ * @element 
+ * @requires ngDrawer.directive:ngDrawer
+ *
+ * @description
+ *
+ * This directives allows you to execute custom behavior, when an ngDrawer is snapped, i.e. fully drawn.
+ *
+ */
+
+
 .directive('ngSnap',[
 
-	'ngDrawer', 
-
-	function(ngDrawer){
+	function(){
 		return {			
 			restrict:		'A',
 			require:		'ngDrawer',
@@ -400,5 +448,40 @@ angular.module('ngDrawer', [])
 		}
 	}
 ])
+
+
+
+/**
+ * @ngdoc directive
+ * @name ngDrawer.directive:ngTuck
+ * @restrict A
+ * @element 
+ * @requires ngDrawer.directive:ngDrawer
+ *
+ * @description
+ *
+ * This directives allows you to execute custom behavior, when an ngDrawer is tucked.
+ *
+ */
+
+
+.directive('ngTuck',[
+
+	function(){
+		return {			
+			restrict:		'A',
+			require:		'ngDrawer',
+			
+
+			link: function(scope, element, attrs){
+					element.on('tuck', function(event){
+						scope.$eval(attrs.ngTuck, {'$event' : event})
+					})
+			}
+
+		}
+	}
+])
+
 
 
