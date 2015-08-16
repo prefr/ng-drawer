@@ -10,7 +10,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "ngDrawer",
       "shortDescription": "This directives allows you to execute custom behavior, when an ngDrawer is started to be drawn.",
-      "keywords": "allows api behavior custom directive directives drawn execute ngdrawer started"
+      "keywords": "allows api behavior custom directive directives drawer drawn execute ngdraw ngdrawer started"
     },
     {
       "section": "api",
@@ -28,7 +28,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "ngDrawer",
       "shortDescription": "This directives allows you to execute custom behavior, when an ngDrawer is snapped, i.e. fully drawn.",
-      "keywords": "allows api behavior custom directive directives drawn execute fully ngdrawer snapped"
+      "keywords": "allows api behavior custom directive directives drawer drawn execute fully ngdrawer ngsnap snapped"
     },
     {
       "section": "api",
@@ -37,7 +37,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "ngDrawer",
       "shortDescription": "This directives allows you to execute custom behavior, when an ngDrawer is tucked.",
-      "keywords": "allows api behavior custom directive directives execute ngdrawer tucked"
+      "keywords": "allows api behavior custom directive directives drawer execute ngdrawer ngtuck tucked"
     },
     {
       "section": "api",

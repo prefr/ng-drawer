@@ -394,6 +394,7 @@ angular.module('ngDrawer', [])
  *
  * This directives allows you to execute custom behavior, when an ngDrawer is started to be drawn.
  *
+ * @param {expression}	ngDraw  Execute <emph>expression</emph> when drawer is drawn.
  */
 
 
@@ -427,6 +428,8 @@ angular.module('ngDrawer', [])
  * @description
  *
  * This directives allows you to execute custom behavior, when an ngDrawer is snapped, i.e. fully drawn.
+ *
+ * @param {expression}	ngSnap  Execute <emph>expression</emph> when drawer is fully drawn and snapped.
  *
  */
 
@@ -462,6 +465,7 @@ angular.module('ngDrawer', [])
  *
  * This directives allows you to execute custom behavior, when an ngDrawer is tucked.
  *
+ * @param {expression}	ngTuck  Execute <emph>expression</emph> when drawer is tucked.
  */
 
 
