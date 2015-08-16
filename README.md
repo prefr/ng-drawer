@@ -11,7 +11,7 @@ Requires: AngularJs
 
 
 * [Demo](http://prefr.org/static/ng-drawer/demo/demo.html)
-* [Api Reference](http://prefr.org/static/ng-drawer/docs/index.html#/api])
+* [Api Reference](http://prefr.org/static/ng-drawer/docs/index.html#/api)
 
 ![1](demo0.png)
 ![2](demo1.png)
