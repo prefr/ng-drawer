@@ -3,9 +3,9 @@
 UI-Element for touch device. Used to swipe, scroll, pull resp. drawn content into view. 
 
 
-![1](demo0.png =250x)
-![2](demo1.png =250x)
-![3](demo2.png =250x)
+![1](demo0.png)
+![2](demo1.png)
+![3](demo2.png)
 
 
 Requires: AngularJs
