@@ -1,6 +1,6 @@
 ## ngDrawer
 
-UI-Element for touch device. Used to swipe, scroll, pull resp. drawn content into view. 
+UI-Element for touch devices. Used to swipe, scroll, pull resp. drawn content into view. 
 ngDrawer respects the native scroll momentum. It will only work properly if the broswer hides the scrollbars.
 Wont work with click and drag.
 
