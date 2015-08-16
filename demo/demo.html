@@ -54,7 +54,9 @@
 				font-weight:	bold;
 			}
 
-			.right [ng-drawer]:first-of-type .content{
+			.right [ng-drawer]:nth-of-type(1) .content,
+			.right [ng-drawer]:nth-of-type(2) .content{
+
 				width:			20em;
 			}
 
@@ -155,8 +157,12 @@
 				top:			14em;
 			}
 
+			.left .abs + .abs{
+				top:			20em;
+			}
+
 			.left .abs .content {
-				background:		#7e5;
+				background:		#9c7;
 			}
 
 			.left .ng-drawer-mounting-left {
@@ -208,16 +214,18 @@
 						</div>
 					</article>
 				</div>
-
+				<!--
 				<article ng-drawer = "right" class ="abs">
 					<div class="content">
 						D - Pull me
 					</div>
 				</article>
+				-->
 			</div>
 
 			<div class ="left">
 
+			<!--
 				<div class = "ng-drawer-mounting-left">
 					<article ng-drawer = "{drawFrom: 'left'}">
 						<div class="content">
@@ -231,10 +239,17 @@
 					</article>
 					
 				</div>
+			-->
 
 				<article ng-drawer = "left" class ="abs">
 					<div class="content">
 						Pull me - 3
+					</div>
+				</article>
+
+				<article ng-drawer = "left" class ="abs">
+					<div class="content">
+						Pull me - 4
 					</div>
 				</article>
 
