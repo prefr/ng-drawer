@@ -334,7 +334,7 @@ angular.module('ngDrawer', [])
 						last_scroll_pos 		= 	frame[0].scrollLeft
 						frame[0].scrollLeft 	+= 	momentum
 
-						$document.find('body').append('<div>'+frame[0].scrollLeft+','+delta+','+distance+'</div>')
+						//$document.find('body').append('<div>'+frame[0].scrollLeft+','+delta+','+distance+'</div>')
 
 
 						//keep scrolling until the drawer is fully pulled out or fully tucked:
