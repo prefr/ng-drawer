@@ -129,18 +129,19 @@ angular.module('ngDrawer', [])
 
 			link: function(scope, element, attrs, ctrl, transclude){
 
-				//scope variables:
+				/**
+				 * Indicates wether the drawer is beeing drawn or not
+				 * @type {Boolean}
+				 */
 				scope.drawn 	= false	//not tucked, user is drawing
+				/**
+				 * Indicates wether the drawer is snapped or not
+				 * @type {Boolean}
+				 */
 				scope.snapped 	= false //not tucked, user is not drawing, drawer is fully drawn
 
 
-				//scope functions:
-				//[...]
-
-
-
-
-
+			
 				//Configuration
 
 				var default_config	=	{
@@ -240,25 +241,21 @@ angular.module('ngDrawer', [])
 
 
 
-				function frac2px(p){
-					return available_space*p
-				}
-
-				function px2frac(p){		
-					return 	(p == 0 || available_space == 0)
-							?	0
-							:	p/available_space
-				}
-
 				function getMomentum(delta, distance){
 					return ngDrawer.snappingFunctions['default'].apply(element, [delta, distance])
 				}
 
 
-				scope.getDistance = function(){					
-					return 	from_right 
-							?	  px2frac(frame[0].scrollLeft)
-							:	1-px2frac(frame[0].scrollLeft)
+				scope.getDistance = function(){	
+					var	max_scroll_left = 	element[0].scrollWidth-element[0].clientWidth,
+						p				=	max_scroll_left
+											?	element[0].scrollLeft / (max_scroll_left)
+											:	0
+
+					return	from_right
+							?	p
+							:	1-p 	
+					
 							
 				}
 
@@ -272,6 +269,7 @@ angular.module('ngDrawer', [])
 
 					scope.drawn = true
 					element.triggerHandler('draw')
+					scope.$emit('draw')
 
 
 					//before we change anything, check how wide the content extends into the view:
@@ -330,7 +328,7 @@ angular.module('ngDrawer', [])
 						//momentum stores how far we should scroll in the next 15 milliseconds in addition to the 'natural' browser scroll momentum.
 						//the 'natural' browser scroll momentum will diminish quickly, but will show up in the first few calls of this function,
 						//thus delta will be different from last turn's momentum 
-
+						
 						last_scroll_pos 		= 	frame[0].scrollLeft
 						frame[0].scrollLeft 	+= 	momentum
 
@@ -344,18 +342,28 @@ angular.module('ngDrawer', [])
 																//thus 'natural' browser momentum should also be 0
 						){
 							$interval.cancel(check_scrolling)
-							distance == 0 
-							?	tuck()
-							:	(scope.snapped = true && element.triggerHandler('snap'))
+
+							if(distance == 0){
+								tuck()
+							}else{
+								element.triggerHandler('snap')
+								scope.snapped = true 
+								scope.$emit('snap')									
+								console.log('snap')
+							}	
 						}
 					}
 
 				}
 
 				function tuck(){
-					scope.drawn = false
 					element.removeClass('drawn')
 					element.triggerHandler('tuck')
+
+					scope.$evalAsync(function(){
+						scope.drawn = false
+						scope.$emit('tuck')
+					})
 
 					//return drawer to its original state:
 					frame
